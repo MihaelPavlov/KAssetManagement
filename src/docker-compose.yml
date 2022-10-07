@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  locationdb:
+    image: postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+
+  location.api:
+    image: ${DOCKER_REGISTRY-}locationapi
+    build:
+      context: .
+      dockerfile: Services/Location/Location.API/Dockerfile
+
+volumes:
+  postgres_data:
+  pgadmin_data:
