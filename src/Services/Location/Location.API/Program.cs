@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//builder.Services.AddDbContext();
 builder.Services.AddDb(builder.Configuration.GetValue<string>("DatabaseSettings:ConnectionString"));
 
 builder.Services.AddControllers();
@@ -24,5 +23,4 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
-//app.MigrateDatabase();
 app.Run();

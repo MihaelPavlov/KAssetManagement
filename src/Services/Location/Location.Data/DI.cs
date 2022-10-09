@@ -1,13 +1,18 @@
-﻿using FluentMigrator.Runner;
-using Location.Data.Migrations;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Location.Data
+﻿namespace Location.Data
 {
+    using FluentMigrator.Runner;
+    using Location.Data.Migrations;
+    using Location.Data.Repositories;
+    using Location.Data.Repositories.Interfaces;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class DI
     {
         public static void AddDb(this IServiceCollection services, string connectionString)
         {
+            services.AddScoped<ILocationConnectionContext, LocationConnectionContext>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
+
             var serviceProvider = DI.CreateServices(connectionString);
             using (var scope = serviceProvider.CreateScope())
             {
@@ -17,7 +22,6 @@ namespace Location.Data
 
         private static IServiceProvider CreateServices(string connectionString)
         {
-
             return new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
