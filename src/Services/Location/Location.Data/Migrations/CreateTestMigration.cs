@@ -7,12 +7,12 @@ namespace Location.Data.Migrations
     {
         public override void Up()
         {
-            Create.Table("City").WithColumn("Name").AsString();
+            Create.Table("Test").WithColumn("Name").AsString();
         }
 
         public override void Down()
         {
-            Delete.Table("City");
+            Delete.Table("Test");
         }
     }
 }

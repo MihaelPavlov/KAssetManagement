@@ -23,7 +23,7 @@ namespace Location.Data
                 .ConfigureRunner(rb => rb
                     .AddPostgres()
                     .WithGlobalConnectionString(connectionString)
-                    .ScanIn(typeof(CreateLocationTable).Assembly, typeof(CreateTestMigration).Assembly).For.Migrations())
+                    .ScanIn(typeof(_InitialCreate).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
         }
