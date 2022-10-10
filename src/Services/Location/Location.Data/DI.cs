@@ -1,6 +1,7 @@
 ﻿namespace Location.Data
 {
     using FluentMigrator.Runner;
+    using FluentMigrator.Runner.Initialization;
     using Location.Data.Migrations;
     using Location.Data.Repositories;
     using Location.Data.Repositories.Interfaces;
@@ -24,11 +25,17 @@
         {
             return new ServiceCollection()
                 .AddFluentMigratorCore()
+                .Configure<AssemblySourceOptions>(x => x.AssemblyNames = new[] { typeof(_InitialCreate).Assembly.GetName().Name })
                 .ConfigureRunner(rb => rb
                     .AddPostgres()
                     .WithGlobalConnectionString(connectionString)
                     .ScanIn(typeof(_InitialCreate).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
+                .Configure<FluentMigratorLoggerOptions>(options =>
+                {
+                    options.ShowSql = true;
+                    options.ShowElapsedTime = true;
+                })
                 .BuildServiceProvider(false);
         }
 

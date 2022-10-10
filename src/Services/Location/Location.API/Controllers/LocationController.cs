@@ -18,7 +18,14 @@
         public async Task<IActionResult> GetLocationById(int locationId)
         {
             var result = await this.repository.GetById(locationId);
-            return Ok(result);
+            return this.Ok(result);
+        }
+
+        [HttpGet("get-all-locations/{organizationId}")]
+        public async Task<IActionResult> GetLocationByOrganizationId(int organizationId)
+        {
+            var result = await this.repository.GetAllByOrganizationId(organizationId);
+            return this.Ok(result);
         }
     }
 }
