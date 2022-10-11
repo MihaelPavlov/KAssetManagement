@@ -27,5 +27,13 @@
             var result = await this.repository.GetAllByOrganizationId(organizationId);
             return this.Ok(result);
         }
+
+        [HttpGet("get-all-locations/{organizationId}")]
+        public async Task<IActionResult> CreteLocation(int organizationId)
+        {
+            var result = await this.repository.GetAllByOrganizationId(organizationId);
+            return this.Ok(result);
+        }
+
     }
 }

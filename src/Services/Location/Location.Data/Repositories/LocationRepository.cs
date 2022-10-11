@@ -2,6 +2,7 @@
 {
     using Dapper;
     using Location.Data.DTO;
+    using Location.Data.Entities;
     using Location.Data.Repositories.Interfaces;
     using System.Data;
 
@@ -14,9 +15,17 @@
             this.connectionContext = connectionContext;
         }
 
-        public Task<int> CreateLocation(CreateLocation request)
+        public async Task<int> CreateLocation(CreateLocation request)
         {
-            throw new NotImplementedException();
+            using (var connection = await this.connectionContext.CreateConnection())
+            {
+                var execFunction = @"SELECT * FROM get_location_by_id (@location_id);";
+
+                var parameters = new DynamicParameters();
+                parameters.Add("@location_id", locationId, DbType.Int32, ParameterDirection.Input);
+
+                return (await connection.QueryAsync<GetLocationById>(execFunction, parameters, commandType: System.Data.CommandType.Text)).SingleOrDefault();
+            }
         }
 
         public async Task<GetAllLocationsByOrganizationId> GetAllByOrganizationId(int organizationId)
@@ -51,6 +60,5 @@
                 return (await connection.QueryAsync<GetLocationById>(execFunction, parameters, commandType: System.Data.CommandType.Text)).SingleOrDefault();
             }
         }
-
     }
 }
