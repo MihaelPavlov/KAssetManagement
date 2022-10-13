@@ -57,13 +57,13 @@ CREATE FUNCTION get_all_locations_by_organization_id(
 	LANGUAGE plpgsql
 AS $$
 BEGIN
-		RETURN QUERY 
-		SELECT
-			l.id ,l.code, l.longitude, l.latitude, l.country_id, ct.name, l.city_id, ci.name, l.street, l.street_number, l.organization_id
-		FROM location l
-		JOIN country ct ON ct.id = l.country_id
-		JOIN city ci ON  ci.id = l.city_id
-		WHERE l.organization_id = f_organization_id;
+	RETURN QUERY 
+	SELECT
+		l.id ,l.code, l.longitude, l.latitude, l.country_id, ct.name, l.city_id, ci.name, l.street, l.street_number, l.organization_id
+	FROM location l
+	JOIN country ct ON ct.id = l.country_id
+	JOIN city ci ON  ci.id = l.city_id
+	WHERE l.organization_id = f_organization_id;
 END;$$
 
 ");
@@ -83,28 +83,67 @@ CREATE FUNCTION create_location (
 AS $$
 DECLARE f_id integer;
 BEGIN
-	    INSERT INTO location (code,longitude,latitude,country_id,city_id,street,street_number,organization_id,updated_by) 
-		VALUES (f_code,f_longitude,f_latitude,f_country_id,f_city_id,f_street,f_street_number,f_organization_id,f_created_by)
-		RETURNING id INTO f_id;
+	INSERT INTO location (code,longitude,latitude,country_id,city_id,street,street_number,organization_id,updated_by) 
+	VALUES (f_code,f_longitude,f_latitude,f_country_id,f_city_id,f_street,f_street_number,f_organization_id,f_created_by)
+	RETURNING id INTO f_id;
 		
 		RETURN f_id;
 END$$ LANGUAGE 'plpgsql';
+");
 
-DROP FUNCTION create_location
+			Execute.Sql(@"
+CREATE FUNCTION update_location (
+	f_location_id integer,
+	f_code varchar,
+	f_latitude varchar,
+	f_longitude varchar,
+	f_country_id integer,
+	f_city_id integer,
+	f_street varchar,
+	f_street_number integer,
+	f_organization_id integer,
+	f_updated_by integer
+) RETURNS VOID
+AS $$
+BEGIN
+	UPDATE location 
+	SET 
+		code = f_code,
+		latitude = f_latitude,
+		longitude = f_longitude,
+		country_id = f_country_id,
+		city_id = f_city_id,
+		street = f_street,
+		street_number = f_street_number,
+		organization_id = f_organization_id,
+		updated_by = f_updated_by
+	WHERE id = f_location_id;		
+END$$ LANGUAGE 'plpgsql';
+");
 
-SELECT * FROM create_location ('TES','longi','logitudeeeee',1,1,'my street',43,1,10)
-
-
+            Execute.Sql(@"
+CREATE FUNCTION delete_location (
+	f_location_id integer
+) RETURNS VOID
+AS $$
+BEGIN
+	DELETE FROM location 
+	WHERE id = f_location_id;		
+END$$ LANGUAGE 'plpgsql';
 ");
         }
-
-
 
         public override void Down()
         {
             Execute.Sql(@"DROP FUNCTION IF EXISTS get_location_by_id;");
 
             Execute.Sql(@"DROP FUNCTION IF EXISTS get_all_locations_by_organization_id;");
+
+            Execute.Sql(@"DROP FUNCTION IF EXISTS create_location;");
+
+            Execute.Sql(@"DROP FUNCTION IF EXISTS update_location;");
+
+            Execute.Sql(@"DROP FUNCTION IF EXISTS delete_location;");
         }
     }
 }

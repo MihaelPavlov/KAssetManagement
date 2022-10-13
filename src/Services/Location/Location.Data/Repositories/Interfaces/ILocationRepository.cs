@@ -19,10 +19,22 @@
         Task<GetAllLocationsByOrganizationId> GetAllByOrganizationId(int organizationId);
 
         /// <summary>
-        /// Create a new location.
+        /// Create location.
         /// </summary>
         /// <param name="request">A model which representing the information about the location.</param>
         /// <returns>A integer representing the ID of the location.</returns>
         Task<int> CreateLocation(CreateLocation request);
+
+        /// <summary>
+        /// Update location.
+        /// </summary>
+        /// <param name="request">A model which representing the information about the location.</param>
+        Task UpdateLocation(UpdateLocation request);
+
+        /// <summary>
+        /// Delete location.
+        /// </summary>
+        /// <param name="request">A model which representing the information about the location.</param>
+        Task DeleteLocation(DeleteLocation request);
     }
 }
