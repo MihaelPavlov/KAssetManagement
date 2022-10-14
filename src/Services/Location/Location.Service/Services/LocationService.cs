@@ -75,6 +75,8 @@
                 mappedRequest.OrganizationId = 1;
 
                 await this.locationRepository.UpdateLocation(mappedRequest);
+
+                unitOfWork.Commit();
             }
         }
     }

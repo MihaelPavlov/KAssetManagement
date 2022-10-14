@@ -9,9 +9,11 @@
         public ServicesProfile()
         {
             CreateMap<LDD.GetLocationById, Location>();
-            CreateMap<CreateLocationRequest, LDD.CreateLocation>();
             CreateMap<LDD.UpdateLocation, UpdateLocationRequest>();
             CreateMap<LDD.GetAllLocationsByOrganizationId, GetAllLocationsByOrganizationId>();
+            CreateMap<LDD.LocationResultDTO, Location>();
+            CreateMap<CreateLocationRequest, LDD.CreateLocation>();
+            CreateMap<UpdateLocationRequest, LDD.UpdateLocation>();
         }
     }
 }
