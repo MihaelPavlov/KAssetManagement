@@ -1,6 +1,6 @@
-﻿namespace Location.Data.DTO
+﻿namespace Location.Service.DTO
 {
-    public class CreateLocation
+    public class CreateLocationRequest
     {
         public string? Code { get; set; }
         public string? Latitude { get; set; }
@@ -9,7 +9,5 @@
         public int CityId { get; set; }
         public string? Street { get; set; }
         public int StreetNumber { get; set; }
-        public int OrganizationId { get; set; }
-        public int UpdatedBy { get; set; }
     }
 }
