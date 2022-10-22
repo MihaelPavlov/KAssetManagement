@@ -1,4 +1,6 @@
+using Asset.API.Extensions;
 using Asset.Infrastructure;
+using Asset.Infrastructure.Seeders;
 using System.Runtime.CompilerServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.MigrateDatabase<AssetContext>((context, services) =>
+{
+    var logger = services.GetService<ILogger<AssetContextSeed>>();
+    AssetContextSeed
+        .SeedAsync(context, logger)
+        .Wait();
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
