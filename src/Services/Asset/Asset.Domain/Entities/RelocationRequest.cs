@@ -1,10 +1,10 @@
 ﻿namespace Asset.Domain.Entities
 {
+    using Domain.Common;
     using Domain.Enums;
 
-    public class RelocationRequest
+    public class RelocationRequest : EntityBase
     {
-        public int Id { get; set; }
         public int AssetId { get; set; }
 
         public int FromSiteId { get; set; }

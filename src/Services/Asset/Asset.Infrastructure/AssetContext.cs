@@ -9,14 +9,6 @@
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-#if DEBUG
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("server=(local); database=KAS.Database.Asset; Integrated Security=true");
-            }
-#endif
-        }
+        public DbSet<Domain.Entities.Asset> Asset { get; set; }
     }
 }
