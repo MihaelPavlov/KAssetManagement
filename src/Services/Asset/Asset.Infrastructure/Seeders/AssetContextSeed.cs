@@ -27,9 +27,9 @@
                     Brand = "Cars",
                     Model= "2022 Tesla Car",
                     Price ="200 000",
-                    Type = Domain.Enums.AssetType.Material,
-                    PeriodType = Domain.Enums.AssetPeriodType.Lasting,
-                    Status = Domain.Enums.AssetStatus.Active
+                    Type = 0,
+                    PeriodType = 1,
+                    Status = 0
                 }
             };
         }

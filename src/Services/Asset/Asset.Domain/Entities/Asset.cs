@@ -17,9 +17,9 @@
         public string? Brand { get; set; }
         public string? Model { get; set; }
         public string Price { get; set; }
-        public AssetType Type { get; set; }
-        public AssetPeriodType PeriodType { get; set; }
-        public AssetStatus Status { get; set; }
+        public int Type { get; set; }
+        public int PeriodType { get; set; }
+        public int Status { get; set; }
 
         public IEnumerable<RelocationRequest> RelocationRequests { get; set; }
     }
