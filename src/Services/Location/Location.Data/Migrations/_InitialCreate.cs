@@ -40,6 +40,14 @@
                 .WithColumn("field").AsString(255).NotNullable()
                 .WithColumn("old_value").AsString(255)
                 .WithColumn("new_value").AsString(255);
+
+            Create.Table("asset_location")
+                .WithColumn("asset_id").AsInt32().NotNullable()
+                .WithColumn("location_id").AsInt32().NotNullable()
+                .WithColumn("created_date").AsDate().NotNullable()
+                .WithColumn("updated_by").AsInt32().NotNullable();
+
+            Create.PrimaryKey("PK_asset_location_assetId_locationId").OnTable("asset_location").WithSchema("public").Columns(new string[] { "asset_id", "location_id" });
         }
 
         public override void Down()
@@ -53,6 +61,8 @@
             Delete.Table("location_events_audi");
 
             Delete.Table("location_values_audit");
+
+            Delete.Table("asset_location");
         }
     }
 }
