@@ -1,6 +1,8 @@
 ﻿namespace Location.Service.Profiles
 {
+    using Asset.EventBus.Messages.Events;
     using AutoMapper;
+    using DAL = Location.Data.Entities;
     using Location.Service.DTO;
     using LDD = Location.Data.DTO;
 
@@ -14,6 +16,7 @@
             CreateMap<LDD.LocationResultDTO, Location>();
             CreateMap<CreateLocationRequest, LDD.CreateLocation>();
             CreateMap<UpdateLocationRequest, LDD.UpdateLocation>();
+            CreateMap<DAL.AssetLocation, AssetCreateLocationEvent>().ReverseMap();
         }
     }
 }

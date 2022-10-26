@@ -2,6 +2,7 @@
 {
     using Dapper;
     using Location.Data.DTO;
+    using Location.Data.Entities;
     using Location.Data.Repositories.Interfaces;
     using System.Data;
 
@@ -104,6 +105,21 @@
 
                 var parameters = new DynamicParameters();
                 parameters.Add("location_id", request.LocationId, DbType.Int32, ParameterDirection.Input);
+
+                await connection.ExecuteAsync(execFunction, parameters, commandType: CommandType.Text);
+            }
+        }
+
+        public async Task CreateAssetLocation(AssetLocation request)
+        {
+            using (var connection = await this.connectionContext.CreateConnection())
+            {
+                var execFunction = @"SELECT create_asset_location (@asset_id, @location_id, @creation_date, @updated_by)";
+                var parameters = new DynamicParameters();
+                parameters.Add("location_id", request.LocationId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("asset_id", request.AssetId, DbType.Int32, ParameterDirection.Input);
+                parameters.Add("creation_date", request.CreationDate, DbType.Date, ParameterDirection.Input);
+                parameters.Add("updated_by", request.LocationId, DbType.Int32, ParameterDirection.Input);
 
                 await connection.ExecuteAsync(execFunction, parameters, commandType: CommandType.Text);
             }

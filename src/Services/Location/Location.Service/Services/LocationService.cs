@@ -38,6 +38,16 @@
             }
         }
 
+        public async Task CreateAssetLocation(Data.Entities.AssetLocation request)
+        {
+            using (IUnitOfWork unitOfWork = this.unitOfWorkFactory.Create())
+            {
+                await this.locationRepository.CreateAssetLocation(request);
+
+                unitOfWork.Commit();
+            }
+        }
+
         public async Task Delete(int id)
         {
             // TODO: get all location  dependancies (Through GRPC to other services)

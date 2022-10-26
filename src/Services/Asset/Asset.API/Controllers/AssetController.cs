@@ -1,5 +1,6 @@
 ﻿namespace Asset.API.Controllers
 {
+    using Asset.Application.Commands;
     using Asset.Application.Persistence;
     using Asset.Application.Queries;
     using Asset.Domain.Entities;
@@ -33,6 +34,18 @@
         {
             var result = await this.mediator.Send(new GetAssetListQuery());
             return this.Ok(result);
+        }
+
+        [HttpPost("assetId")]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> SetAssetLocation(int assetId, CreateAssetLocationCommand request)
+        {
+            if (assetId != request.AssetId)
+                throw new Exception("Body and route are not the same!");
+
+            await this.mediator.Send(request);
+            return this.Accepted();
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Asset.EventBus.Messages.Events
+﻿namespace Asset.EventBus.Messages.Events
 {
-    internal class AssetCreateLocationEvent
+    using Asset.EventBus.Messages.Common;
+
+    public class AssetCreateLocationEvent : IntegrationBaseEvent
     {
+        public int AssetId { get; set; }
+        public int LocationId { get; set; }
+        public int UpdatedBy { get; set; }
     }
 }

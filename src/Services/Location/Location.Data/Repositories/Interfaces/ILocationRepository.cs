@@ -1,6 +1,7 @@
 ﻿namespace Location.Data.Repositories.Interfaces
 {
     using Location.Data.DTO;
+    using Location.Data.Entities;
 
     public interface ILocationRepository
     {
@@ -36,5 +37,7 @@
         /// </summary>
         /// <param name="request">A model which representing the information about the location.</param>
         Task DeleteLocation(DeleteLocation request);
+
+        Task CreateAssetLocation(AssetLocation request);
     }
 }
