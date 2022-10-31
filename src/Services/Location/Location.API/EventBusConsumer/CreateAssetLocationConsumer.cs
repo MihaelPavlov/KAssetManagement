@@ -1,11 +1,11 @@
-﻿using Asset.EventBus.Messages.Events;
-using AutoMapper;
-using Location.Data.Entities;
-using Location.Service.Services.Interfaces;
-using MassTransit;
-
-namespace Location.API.EventBusConsumer
+﻿namespace Location.API.EventBusConsumer
 {
+    using Asset.EventBus.Messages.Events;
+    using AutoMapper;
+    using Location.Data.Entities;
+    using Location.Service.Services.Interfaces;
+    using MassTransit;
+
     public class CreateAssetLocationConsumer : IConsumer<AssetCreateLocationEvent>
     {
         private readonly IMapper mapper;
