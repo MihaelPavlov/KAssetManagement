@@ -4,18 +4,20 @@
     using AutoMapper;
     using DAL = Location.Data.Entities;
     using Location.Service.DTO;
-    using LDD = Location.Data.DTO;
+    using DTOs = Location.Data.DTO;
 
     public class ServicesProfile : Profile
     {
         public ServicesProfile()
         {
-            CreateMap<LDD.GetLocationById, Location>();
-            CreateMap<LDD.UpdateLocation, UpdateLocationRequest>();
-            CreateMap<LDD.GetAllLocationsByOrganizationId, GetAllLocationsByOrganizationId>();
-            CreateMap<LDD.LocationResultDTO, Location>();
-            CreateMap<CreateLocationRequest, LDD.CreateLocation>();
-            CreateMap<UpdateLocationRequest, LDD.UpdateLocation>();
+            CreateMap<DTOs.GetLocationById, Location>();
+            CreateMap<DTOs.UpdateLocation, UpdateLocationRequest>();
+            CreateMap<DTOs.GetAllLocationsByOrganizationId, GetAllLocationsByOrganizationId>();
+            CreateMap<DTOs.LocationResultDTO, Location>();
+            CreateMap<CreateLocationRequest, DTOs.CreateLocation>();
+            CreateMap<UpdateLocationRequest, DTOs.UpdateLocation>();
+
+            // Events
             CreateMap<DAL.AssetLocation, AssetCreateLocationEvent>().ReverseMap();
         }
     }

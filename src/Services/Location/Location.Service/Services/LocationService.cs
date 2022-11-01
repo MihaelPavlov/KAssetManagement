@@ -6,7 +6,7 @@
     using Location.Service.Services.Interfaces;
     using Location.Service.UnitOfWork;
     using System.Threading.Tasks;
-    using LDD = Location.Data.DTO;
+    using DTOs = Location.Data.DTO;
 
     public class LocationService : ILocationService
     {
@@ -25,7 +25,7 @@
         {
             using (IUnitOfWork unitOfWork = this.unitOfWorkFactory.Create())
             {
-                var mappedRequest = this.mapper.Map<LDD.CreateLocation>(request);
+                var mappedRequest = this.mapper.Map<DTOs.CreateLocation>(request);
                 // TODO: Set user id and organization Id;
                 mappedRequest.UpdatedBy = 1;
                 mappedRequest.OrganizationId = 1;
@@ -58,7 +58,7 @@
 
             using (var unitOfWork = this.unitOfWorkFactory.Create())
             {
-                await this.locationRepository.DeleteLocation(new LDD.DeleteLocation(id));
+                await this.locationRepository.DeleteLocation(new DTOs.DeleteLocation(id));
                 unitOfWork.Commit();
             }
         }
@@ -79,7 +79,7 @@
         {
             using (var unitOfWork = this.unitOfWorkFactory.Create())
             {
-                var mappedRequest = this.mapper.Map<LDD.UpdateLocation>(request);
+                var mappedRequest = this.mapper.Map<DTOs.UpdateLocation>(request);
                 // TODO: Set user id and organization Id;
                 mappedRequest.UpdatedBy = 1;
                 mappedRequest.OrganizationId = 1;

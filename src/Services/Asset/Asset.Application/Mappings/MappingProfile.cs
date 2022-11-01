@@ -1,10 +1,9 @@
-﻿using Asset.Application.Commands;
-using Asset.Application.Queries;
-using Asset.EventBus.Messages.Events;
-using AutoMapper;
-
-namespace Asset.Application.Mappings
+﻿namespace Asset.Application.Mappings
 {
+    using Asset.Application.Commands;
+    using Asset.EventBus.Messages.Events;
+    using AutoMapper;
+
     public class MappingProfile : Profile
     {
         public MappingProfile()

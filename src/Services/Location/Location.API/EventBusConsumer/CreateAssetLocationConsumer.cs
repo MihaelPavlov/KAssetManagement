@@ -1,12 +1,12 @@
 ﻿namespace Location.API.EventBusConsumer
 {
-    using Asset.EventBus.Messages.Events;
+    using Events = Asset.EventBus.Messages.Events;
     using AutoMapper;
     using Location.Data.Entities;
     using Location.Service.Services.Interfaces;
     using MassTransit;
 
-    public class CreateAssetLocationConsumer : IConsumer<AssetCreateLocationEvent>
+    public class CreateAssetLocationConsumer : IConsumer<Events.AssetCreateLocationEvent>
     {
         private readonly IMapper mapper;
         private readonly ILocationService locationService;
@@ -17,7 +17,7 @@
             this.locationService = locationService;
         }
 
-        public async Task Consume(ConsumeContext<AssetCreateLocationEvent> context)
+        public async Task Consume(ConsumeContext<Events.AssetCreateLocationEvent> context)
         {
             var model = this.mapper.Map<AssetLocation>(context.Message);
 
