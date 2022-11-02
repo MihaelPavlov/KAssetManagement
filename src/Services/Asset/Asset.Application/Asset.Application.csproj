@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Asset.EventBus.Messages\Asset.EventBus.Messages.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="IntegrationEvents\EventHandling\" />
+  </ItemGroup>
+
 </Project>

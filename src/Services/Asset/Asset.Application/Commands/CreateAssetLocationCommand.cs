@@ -4,7 +4,7 @@
     using MassTransit;
     using Asset.Application.Exceptions;
     using Asset.Application.Queries;
-    using Events = Asset.EventBus.Messages.Events;
+    using Asset.Application.IntegrationEvents.Events;
 
     public class CreateAssetLocationCommand : IRequest
     {
@@ -31,9 +31,17 @@
             if (assetById == null)
                 throw new NotFoundException("Asset", request.AssetId);
 
-            var eventMessage = new Events.AssetCreateLocationEvent(request.AssetId, request.LocationId, /*userContext.UserId*/ 0);
+            var eventMessage = new CreateAssetLocationEvent { AssetId = request.AssetId, LocationId = request.LocationId, UpdatedBy = 0/*userContext.UserId*/ };
 
-            await this.publishEndpoint.Publish(eventMessage);
+            try
+            {
+                await this.publishEndpoint.Publish(eventMessage);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
 
             return Unit.Value;
         }

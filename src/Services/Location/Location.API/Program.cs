@@ -1,5 +1,5 @@
 using Asset.EventBus.Messages;
-using Location.API.EventBusConsumer;
+using Location.API.IntegrationEvents.EventHandling;
 using Location.Service;
 using MassTransit;
 
@@ -10,7 +10,7 @@ builder.Services.AddServices(builder.Configuration);
 // MassTransit-RabbitMQ Configuration
 builder.Services.AddMassTransit(config =>
 {
-    config.AddConsumer<CreateAssetLocationConsumer>();
+    config.AddConsumer<CreateAssetLocationHandler>();
 
     config.UsingRabbitMq((ctx, cfg) =>
     {
@@ -18,7 +18,7 @@ builder.Services.AddMassTransit(config =>
 
         cfg.ReceiveEndpoint(EventBusConstants.AssetCreateLocationQueue, c =>
         {
-            c.ConfigureConsumer<CreateAssetLocationConsumer>(ctx);
+            c.ConfigureConsumer<CreateAssetLocationHandler>(ctx);
         });
     });
 });
