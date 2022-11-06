@@ -1,7 +1,6 @@
 ﻿using Asset.Application.Interfaces;
 using Asset.Application.Persistence;
 using Asset.Domain.Enums;
-using Asset.EventBus.Messages.Events;
 using AutoMapper;
 using MediatR;
 using DAL = Asset.Domain.Entities;

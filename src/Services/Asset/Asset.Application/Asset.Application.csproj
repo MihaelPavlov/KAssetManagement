@@ -19,12 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\EventBus.Messages\EventBus.Messages.csproj" />
     <ProjectReference Include="..\Asset.Domain\Asset.Domain.csproj" />
-    <ProjectReference Include="..\Asset.EventBus.Messages\Asset.EventBus.Messages.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="IntegrationEvents\EventHandling\" />
+    <Folder Include="IntegrationEvents\Events\" />
   </ItemGroup>
 
 </Project>

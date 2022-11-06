@@ -1,10 +1,10 @@
 ﻿namespace Location.Service.Profiles
 {
-    using Asset.EventBus.Messages.Events;
     using AutoMapper;
     using DAL = Location.Data.Entities;
     using Location.Service.DTO;
     using DTOs = Location.Data.DTO;
+    using EventBus.Messages;
 
     public class ServicesProfile : Profile
     {
@@ -18,7 +18,7 @@
             CreateMap<UpdateLocationRequest, DTOs.UpdateLocation>();
 
             // Events
-            CreateMap<DAL.AssetLocation, AssetCreateLocationEvent>().ReverseMap();
+            CreateMap<DAL.AssetLocation, CreateAssetLocationEvent>().ReverseMap();
         }
     }
 }

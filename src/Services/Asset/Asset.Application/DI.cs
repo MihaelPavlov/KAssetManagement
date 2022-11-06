@@ -3,7 +3,6 @@
     using Asset.Application.Behaviours;
     using Asset.Application.Mappings;
     using Asset.Application.Queries;
-    using Asset.EventBus.Messages;
     using AutoMapper;
     using FluentValidation;
     using MassTransit;

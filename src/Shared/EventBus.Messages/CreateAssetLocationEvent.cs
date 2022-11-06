@@ -1,7 +1,12 @@
-﻿namespace EventBus.Messages.AssetEvents
-{
-    using EventBus.Messages.Common;
+﻿using EventBus.Messages.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace EventBus.Messages
+{
     public class CreateAssetLocationEvent : IntegrationBaseEvent
     {
         public int AssetId { get; set; }

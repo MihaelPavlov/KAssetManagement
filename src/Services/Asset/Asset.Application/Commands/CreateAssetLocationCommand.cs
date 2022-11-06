@@ -4,7 +4,7 @@
     using MassTransit;
     using Asset.Application.Exceptions;
     using Asset.Application.Queries;
-    using Asset.Application.IntegrationEvents.Events;
+    using EventBus.Messages;
 
     public class CreateAssetLocationCommand : IRequest
     {
@@ -31,7 +31,7 @@
             if (assetById == null)
                 throw new NotFoundException("Asset", request.AssetId);
 
-            var eventMessage = new CreateAssetLocationEvent { AssetId = request.AssetId, LocationId = request.LocationId, UpdatedBy = 0/*userContext.UserId*/ };
+            var eventMessage = new EventBus.Messages.CreateAssetLocationEvent { AssetId = request.AssetId, LocationId = request.LocationId, UpdatedBy = 0/*userContext.UserId*/ };
 
             try
             {
