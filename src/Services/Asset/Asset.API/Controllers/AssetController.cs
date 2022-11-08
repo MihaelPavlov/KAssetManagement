@@ -1,7 +1,6 @@
 ﻿namespace Asset.API.Controllers
 {
     using Asset.Application.Commands;
-    using Asset.Application.Persistence;
     using Asset.Application.Queries;
     using Asset.Domain.Entities;
     using MediatR;
@@ -12,19 +11,17 @@
     [Route("[controller]")]
     public class AssetController : ControllerBase
     {
-        private readonly IAssetRepository assetRepository;
         private readonly IMediator mediator;
-        public AssetController(IAssetRepository assetRepository, IMediator mediator)
+        public AssetController(IMediator mediator)
         {
-            this.assetRepository = assetRepository;
             this.mediator = mediator;
         }
 
         [HttpGet("assetId")]
-        [ProducesResponseType(typeof(Asset), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(GetAssetByIdQueryModel), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Asset>> GetAssetById(int assetId)
         {
-            var result = await this.assetRepository.GetByIdAsync(assetId);
+            var result = await this.mediator.Send(new GetAssetByIdQuery(assetId));
             return this.Ok(result);
         }
 
@@ -36,16 +33,31 @@
             return this.Ok(result);
         }
 
-        [HttpPost("assetId")]
-        [ProducesResponseType((int)HttpStatusCode.Accepted)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> SetAssetLocation(int assetId, CreateAssetLocationCommand request)
+        [HttpPost]
+        [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<Asset>> CreateAsset(CreateAssetCommand request)
+        {
+            var result = await this.mediator.Send(request);
+            return this.Ok(result);
+        }
+
+        [HttpPut("assetId")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<ActionResult> UpdateAsset(int assetId, UpdateAssetCommand request)
         {
             if (assetId != request.AssetId)
                 throw new Exception("Body and route are not the same!");
 
             await this.mediator.Send(request);
-            return this.Accepted();
+            return this.Ok();
+        }
+
+        [HttpDelete("assetId")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<ActionResult> DeleteAsset(int assetId)
+        {
+            await this.mediator.Send(new DeleteAssetCommand(assetId));
+            return this.Ok();
         }
     }
 }

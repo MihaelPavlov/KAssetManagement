@@ -9,7 +9,8 @@
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
-    public class RepositoryBase<T> : IAsyncRepository<T> where T : EntityBase
+    public class RepositoryBase<T> : IAsyncRepository<T>
+        where T : EntityBase
     {
         protected readonly AssetContext context;
 
@@ -20,8 +21,10 @@
 
         public async Task<T> AddAsync(T entity)
         {
-            this.context.Add<T>(entity);
+            await this.context.AddAsync<T>(entity);
+
             await this.context.SaveChangesAsync();
+
             return entity;
         }
 
@@ -33,12 +36,12 @@
 
         public async Task<IReadOnlyList<T>> GetAllAsync()
         {
-            return await this.context.Set<T>().ToListAsync();
+            return await this.context.Set<T>().AsNoTracking().ToListAsync();
         }
 
         public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate)
         {
-            return await this.context.Set<T>().Where(predicate).ToListAsync();
+            return await this.context.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
         }
 
         public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeString = null, bool disableTracking = true)
@@ -71,7 +74,7 @@
 
         public virtual async Task<T> GetByIdAsync(int id)
         {
-            return await this.context.Set<T>().FindAsync(id);
+            return await this.context.Set<T>().AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task UpdateAsync(T entity)

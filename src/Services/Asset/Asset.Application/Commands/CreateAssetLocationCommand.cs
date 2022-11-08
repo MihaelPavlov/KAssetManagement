@@ -10,7 +10,7 @@
     {
         public int AssetId { get; set; }
         public int LocationId { get; set; }
-        public DateTime dateTime { get; set; }
+        public DateTime CreationDate { get; set; }
     }
 
     internal class CreateAssetLocationCommandHandler : IRequestHandler<CreateAssetLocationCommand>
@@ -26,7 +26,7 @@
 
         public async Task<Unit> Handle(CreateAssetLocationCommand request, CancellationToken cancellationToken)
         {
-            var assetById = await this.mediator.Send(new GetAssetByIdQuery(request.AssetId));
+            var assetById = await mediator.Send(new GetAssetByIdQuery(request.AssetId));
 
             if (assetById == null)
                 throw new NotFoundException("Asset", request.AssetId);
@@ -35,7 +35,7 @@
 
             try
             {
-                await this.publishEndpoint.Publish(eventMessage);
+                await publishEndpoint.Publish(eventMessage);
             }
             catch (Exception ex)
             {
