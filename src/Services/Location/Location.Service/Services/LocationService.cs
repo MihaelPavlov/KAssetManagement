@@ -21,6 +21,18 @@
             this.unitOfWorkFactory = unitOfWorkFactory;
         }
 
+        public async Task<GetAllLocationsByOrganizationId> GetAllByOrganizationId(int organizationId)
+        {
+            var result = await this.locationRepository.GetAllByOrganizationId(organizationId);
+            return this.mapper.Map<GetAllLocationsByOrganizationId>(result);
+        }
+
+        public async Task<Location> GetById(int id)
+        {
+            var result = await this.locationRepository.GetById(id);/*?? throw new NotFoundException("Location",id);*/
+            return this.mapper.Map<Location>(result);
+        }
+
         public async Task<int> Create(CreateLocationRequest request)
         {
             using (IUnitOfWork unitOfWork = this.unitOfWorkFactory.Create())
@@ -38,11 +50,16 @@
             }
         }
 
-        public async Task CreateAssetLocation(Data.Entities.AssetLocation request)
+        public async Task Update(UpdateLocationRequest request)
         {
-            using (IUnitOfWork unitOfWork = this.unitOfWorkFactory.Create())
+            using (var unitOfWork = this.unitOfWorkFactory.Create())
             {
-                await this.locationRepository.CreateAssetLocation(request);
+                var mappedRequest = this.mapper.Map<DTOs.UpdateLocation>(request);
+                // TODO: Set user id and organization Id;
+                mappedRequest.UpdatedBy = 1;
+                mappedRequest.OrganizationId = 1;
+
+                await this.locationRepository.UpdateLocation(mappedRequest);
 
                 unitOfWork.Commit();
             }
@@ -63,28 +80,11 @@
             }
         }
 
-        public async Task<GetAllLocationsByOrganizationId> GetAllByOrganizationId(int organizationId)
+        public async Task CreateAssetLocation(Data.Entities.AssetLocation request)
         {
-            var result = await this.locationRepository.GetAllByOrganizationId(organizationId);
-            return this.mapper.Map<GetAllLocationsByOrganizationId>(result);
-        }
-
-        public async Task<Location> GetById(int id)
-        {
-            var result = await this.locationRepository.GetById(id);/*?? throw new NotFoundException("Location",id);*/
-            return this.mapper.Map<Location>(result);
-        }
-
-        public async Task Update(UpdateLocationRequest request)
-        {
-            using (var unitOfWork = this.unitOfWorkFactory.Create())
+            using (IUnitOfWork unitOfWork = this.unitOfWorkFactory.Create())
             {
-                var mappedRequest = this.mapper.Map<DTOs.UpdateLocation>(request);
-                // TODO: Set user id and organization Id;
-                mappedRequest.UpdatedBy = 1;
-                mappedRequest.OrganizationId = 1;
-
-                await this.locationRepository.UpdateLocation(mappedRequest);
+                await this.locationRepository.CreateAssetLocation(request);
 
                 unitOfWork.Commit();
             }

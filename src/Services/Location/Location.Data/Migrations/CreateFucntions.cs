@@ -131,6 +131,20 @@ BEGIN
 	WHERE id = f_location_id;		
 END$$ LANGUAGE 'plpgsql';
 ");
+
+            Execute.Sql(@"
+CREATE FUNCTION create_asset_location (
+	f_asset_id integer,
+	f_location_id integer,
+	f_creation_date date,
+	f_updated_by integer
+) RETURNS VOID
+AS $$
+BEGIN
+	INSERT INTO asset_location (asset_id, location_id, created_date, updated_by) 
+	VALUES (f_asset_id, f_location_id, f_creation_date, f_updated_by);
+END$$ LANGUAGE 'plpgsql';
+");
         }
 
         public override void Down()
@@ -144,6 +158,8 @@ END$$ LANGUAGE 'plpgsql';
             Execute.Sql(@"DROP FUNCTION IF EXISTS update_location;");
 
             Execute.Sql(@"DROP FUNCTION IF EXISTS delete_location;");
+
+            Execute.Sql(@"DROP FUNCTION IF EXISTS create_asset_location;");
         }
     }
 }
