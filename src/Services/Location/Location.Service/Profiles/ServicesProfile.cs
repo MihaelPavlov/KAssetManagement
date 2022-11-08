@@ -4,7 +4,7 @@
     using DAL = Location.Data.Entities;
     using Location.Service.DTO;
     using DTOs = Location.Data.DTO;
-    using EventBus.Messages;
+    using EventBus.Messages.AssetEvents;
 
     public class ServicesProfile : Profile
     {

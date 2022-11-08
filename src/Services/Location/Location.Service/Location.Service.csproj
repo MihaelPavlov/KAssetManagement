@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\EventBus.Messages\EventBus.Messages.csproj" />
     <ProjectReference Include="..\Location.Data\Location.Data.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-using Asset.EventBus.Messages;
+using EventBus.Messages.AssetEvents.Global;
 using Location.API.IntegrationEvents.EventHandling;
 using Location.Service;
 using MassTransit;

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EventBus.Messages;
+using EventBus.Messages.AssetEvents;
 using Location.Data.Entities;
 using Location.Service.Services.Interfaces;
 using MassTransit;

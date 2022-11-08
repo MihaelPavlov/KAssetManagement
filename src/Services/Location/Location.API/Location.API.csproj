@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="EventBusConsumer\**" />
+    <Content Remove="EventBusConsumer\**" />
+    <EmbeddedResource Remove="EventBusConsumer\**" />
+    <None Remove="EventBusConsumer\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MassTransit" Version="8.0.7" />
     <PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.7" />
@@ -23,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EventBusConsumer\" />
     <Folder Include="IntegrationEvents\Events\" />
   </ItemGroup>
 

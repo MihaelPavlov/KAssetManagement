@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EventBus.Base\EventBus.Base.csproj" />
-    <ProjectReference Include="..\EventBus.RabbitMQ\EventBus.RabbitMQ.csproj" />
   </ItemGroup>
 
 </Project>
