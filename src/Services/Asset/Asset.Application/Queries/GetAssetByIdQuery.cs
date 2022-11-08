@@ -1,4 +1,5 @@
-﻿using Asset.Application.Interfaces;
+﻿using Asset.Application.Exceptions;
+using Asset.Application.Interfaces;
 using Asset.Application.Persistence;
 using Asset.Domain.Enums;
 using AutoMapper;
@@ -31,6 +32,9 @@ namespace Asset.Application.Queries
         public async Task<GetAssetByIdQueryModel> Handle(GetAssetByIdQuery request, CancellationToken cancellationToken)
         {
             var result = await this.assetRepository.GetByIdAsync(request.AssetId);
+
+            if (result == null)
+                throw new NotFoundException(nameof(request.AssetId), "Asset not found!");
 
             return this.mapper.Map<GetAssetByIdQueryModel>(result);
         }
