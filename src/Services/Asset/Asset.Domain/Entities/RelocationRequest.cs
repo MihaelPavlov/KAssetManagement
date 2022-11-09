@@ -1,7 +1,6 @@
 ﻿namespace Asset.Domain.Entities
 {
     using Domain.Common;
-    using Domain.Enums;
 
     public class RelocationRequest : EntityBase
     {

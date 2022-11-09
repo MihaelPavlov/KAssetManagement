@@ -2,8 +2,6 @@ using Asset.API.Extensions;
 using Asset.Application;
 using Asset.Infrastructure;
 using Asset.Infrastructure.Seeders;
-using MassTransit;
-using System.Runtime.CompilerServices;
 
 var builder = WebApplication.CreateBuilder(args);
 

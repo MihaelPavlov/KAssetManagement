@@ -19,7 +19,7 @@
 
         [HttpGet("assetId")]
         [ProducesResponseType(typeof(GetAssetByIdQueryModel), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Asset>> GetAssetById(int assetId)
+        public async Task<IActionResult> GetAssetById(int assetId)
         {
             var result = await this.mediator.Send(new GetAssetByIdQuery(assetId));
             return this.Ok(result);
@@ -27,7 +27,7 @@
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<GetAssetListQueryModel>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Asset>> GetAssetList()
+        public async Task<IActionResult> GetAssetList()
         {
             var result = await this.mediator.Send(new GetAssetListQuery());
             return this.Ok(result);
@@ -35,7 +35,7 @@
 
         [HttpPost]
         [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Asset>> CreateAsset(CreateAssetCommand request)
+        public async Task<IActionResult> CreateAsset(CreateAssetCommand request)
         {
             var result = await this.mediator.Send(request);
             return this.Ok(result);
@@ -43,7 +43,7 @@
 
         [HttpPut("assetId")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult> UpdateAsset(int assetId, UpdateAssetCommand request)
+        public async Task<IActionResult> UpdateAsset(int assetId, UpdateAssetCommand request)
         {
             if (assetId != request.AssetId)
                 throw new Exception("Body and route are not the same!");
@@ -54,7 +54,7 @@
 
         [HttpDelete("assetId")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult> DeleteAsset(int assetId)
+        public async Task<IActionResult> DeleteAsset(int assetId)
         {
             await this.mediator.Send(new DeleteAssetCommand(assetId));
             return this.Ok();

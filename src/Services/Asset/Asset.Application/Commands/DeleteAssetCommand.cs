@@ -5,7 +5,6 @@
     using Asset.Application.Queries;
     using AutoMapper;
     using MediatR;
-    using System.Diagnostics.CodeAnalysis;
     using DAL = Asset.Domain.Entities;
 
     public class DeleteAssetCommand : IRequest
@@ -38,6 +37,8 @@
                 throw new NotFoundException(nameof(request.AssetId), "Asset not found!");
 
             // TODO: Validation for asset dependencies
+            //       OR
+            //       Send Notification to all users that have this asset (Asset {id} {name} is removed from our Company)
 
             await this.assetRepository.DeleteAsync(this.mapper.Map<DAL.Asset>(asset));
 

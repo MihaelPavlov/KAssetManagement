@@ -54,7 +54,7 @@
 
         public async Task<int> Handle(CreateAssetCommand request, CancellationToken cancellationToken)
         {
-            var result = await assetRepository.AddAsync(mapper.Map<DAL.Asset>(request));
+            var result = await this.assetRepository.AddAsync(this.mapper.Map<DAL.Asset>(request));
 
             // publish inside location service
             await this.mediator.Send(new CreateAssetLocationCommand() { AssetId = result.Id, LocationId = result.LocationId, CreationDate = DateTime.UtcNow });

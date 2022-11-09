@@ -8,13 +8,14 @@
 
     public static class DI
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services , IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AssetContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("AssetConnectionString")));
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
             services.AddScoped<IAssetRepository, AssetRepository>();
+            services.AddScoped<IRelocationRepository, RelocationRepository>();
             return services;
         }
     }
