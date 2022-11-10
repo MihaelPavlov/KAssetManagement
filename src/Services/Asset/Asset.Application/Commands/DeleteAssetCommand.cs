@@ -9,11 +9,11 @@
 
     public class DeleteAssetCommand : IRequest
     {
-        public int AssetId { get; set; }
+        public int Id { get; set; }
 
-        public DeleteAssetCommand(int assetId)
+        public DeleteAssetCommand(int id)
         {
-            AssetId = assetId;
+            this.Id = id;
         }
     }
 
@@ -31,10 +31,10 @@
         }
         public async Task<Unit> Handle(DeleteAssetCommand request, CancellationToken cancellationToken)
         {
-            var asset = await this.mediator.Send(new GetAssetByIdQuery(request.AssetId));
+            var asset = await this.mediator.Send(new GetAssetByIdQuery(request.Id));
 
             if (asset == null)
-                throw new NotFoundException(nameof(request.AssetId), "Asset not found!");
+                throw new NotFoundException(nameof(request.Id), "Asset not found!");
 
             // TODO: Validation for asset dependencies
             //       OR

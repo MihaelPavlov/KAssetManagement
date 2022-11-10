@@ -26,7 +26,7 @@
                     Producer= "Tesla",
                     Brand = "Cars",
                     Model= "2022 Tesla Car",
-                    Price ="200 000",
+                    Price =200.000m,
                     Type = 0,
                     PeriodType = 1,
                     Status = 0

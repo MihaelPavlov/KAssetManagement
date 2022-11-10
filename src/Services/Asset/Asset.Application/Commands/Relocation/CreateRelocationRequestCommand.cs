@@ -1,10 +1,11 @@
-﻿namespace Asset.Application.Commands
+﻿namespace Asset.Application.Commands.Relocation
 {
     using AutoMapper;
     using Asset.Application.Persistence;
-    using DAL = Asset.Domain.Entities;
+    using DAL = Domain.Entities;
     using System.ComponentModel.DataAnnotations;
     using MediatR;
+    using Asset.Domain.Enums;
 
     public class CreateRelocationRequestCommand : IRequest<int>
     {
@@ -36,7 +37,10 @@
 
         public async Task<int> Handle(CreateRelocationRequestCommand request, CancellationToken cancellationToken)
         {
-            var result = await this.relocationRepository.AddAsync(this.mapper.Map<DAL.RelocationRequest>(request));
+            var relocationRequest = mapper.Map<DAL.RelocationRequest>(request);
+            relocationRequest.Status = (int)RequestStatus.Pending;
+
+            var result = await relocationRepository.AddAsync(relocationRequest);
 
             return result.Id;
         }

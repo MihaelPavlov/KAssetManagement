@@ -9,13 +9,13 @@
     public class UpdateAssetCommand : IRequest
     {
         [Required]
-        public int AssetId { get; set; }
+        public int Id { get; set; }
         public int InventoryNumber { get; set; }
         public int GuarantyMounts { get; set; }
         public string? Producer { get; set; }
         public string? Brand { get; set; }
         public string? Model { get; set; }
-        public string? Price { get; set; }
+        public decimal? Price { get; set; }
         public int Type { get; set; }
         public int PeriodType { get; set; }
         public int Status { get; set; }

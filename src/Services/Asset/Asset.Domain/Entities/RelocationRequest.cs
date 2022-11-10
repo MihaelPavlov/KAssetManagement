@@ -16,9 +16,11 @@
         public int? ToLocationId { get; set; }
 
         public int Status { get; set; } // RequestStatus
-        public int GetRequest { get; set; } // RequestStatus
-        public int Received { get; set; } // RequestStatus
+        public int? GetRequest { get; set; } // RequestStatus
+        public int? Received { get; set; } // RequestStatus
 
         public Asset? Asset { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

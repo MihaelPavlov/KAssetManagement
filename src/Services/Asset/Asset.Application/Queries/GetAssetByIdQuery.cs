@@ -1,20 +1,20 @@
-﻿using Asset.Application.Exceptions;
-using Asset.Application.Interfaces;
-using Asset.Application.Persistence;
-using Asset.Domain.Enums;
-using AutoMapper;
-using MediatR;
-using DAL = Asset.Domain.Entities;
-
-namespace Asset.Application.Queries
+﻿namespace Asset.Application.Queries
 {
+    using Asset.Application.Exceptions;
+    using Asset.Application.Interfaces;
+    using Asset.Application.Persistence;
+    using Asset.Domain.Enums;
+    using AutoMapper;
+    using MediatR;
+    using DAL = Asset.Domain.Entities;
+
     public class GetAssetByIdQuery : IRequest<GetAssetByIdQueryModel>
     {
-        public int AssetId { get; set; }
+        public int Id { get; set; }
 
-        public GetAssetByIdQuery(int assetId)
+        public GetAssetByIdQuery(int id)
         {
-            this.AssetId = assetId;
+            this.Id = id;
         }
     }
 
@@ -31,10 +31,10 @@ namespace Asset.Application.Queries
 
         public async Task<GetAssetByIdQueryModel> Handle(GetAssetByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await this.assetRepository.GetByIdAsync(request.AssetId);
+            var result = await this.assetRepository.GetByIdAsync(request.Id);
 
             if (result == null)
-                throw new NotFoundException(nameof(request.AssetId), "Asset not found!");
+                throw new NotFoundException(nameof(request.Id), "Asset not found!");
 
             return this.mapper.Map<GetAssetByIdQueryModel>(result);
         }
@@ -50,7 +50,7 @@ namespace Asset.Application.Queries
         public string? Producer { get; set; }
         public string? Brand { get; set; }
         public string? Model { get; set; }
-        public string? Price { get; set; }
+        public decimal? Price { get; set; }
         public AssetType Type { get; set; }
         public AssetPeriodType PeriodType { get; set; }
         public AssetStatus Status { get; set; }

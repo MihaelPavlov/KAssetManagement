@@ -2,7 +2,6 @@
 {
     using Asset.Application.Commands;
     using Asset.Application.Queries;
-    using Asset.Domain.Entities;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
     using System.Net;
@@ -17,11 +16,11 @@
             this.mediator = mediator;
         }
 
-        [HttpGet("assetId")]
+        [HttpGet("id")]
         [ProducesResponseType(typeof(GetAssetByIdQueryModel), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetAssetById(int assetId)
+        public async Task<IActionResult> GetAssetById(int id)
         {
-            var result = await this.mediator.Send(new GetAssetByIdQuery(assetId));
+            var result = await this.mediator.Send(new GetAssetByIdQuery(id));
             return this.Ok(result);
         }
 
@@ -41,22 +40,22 @@
             return this.Ok(result);
         }
 
-        [HttpPut("assetId")]
+        [HttpPut("id")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> UpdateAsset(int assetId, UpdateAssetCommand request)
+        public async Task<IActionResult> UpdateAsset(int id, UpdateAssetCommand request)
         {
-            if (assetId != request.AssetId)
+            if (id != request.Id)
                 throw new Exception("Body and route are not the same!");
 
             await this.mediator.Send(request);
             return this.Ok();
         }
 
-        [HttpDelete("assetId")]
+        [HttpDelete("id")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> DeleteAsset(int assetId)
+        public async Task<IActionResult> DeleteAsset(int id)
         {
-            await this.mediator.Send(new DeleteAssetCommand(assetId));
+            await this.mediator.Send(new DeleteAssetCommand(id));
             return this.Ok();
         }
     }

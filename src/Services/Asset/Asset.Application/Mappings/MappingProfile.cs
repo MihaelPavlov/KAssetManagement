@@ -4,6 +4,7 @@
     using DAL = Asset.Domain.Entities;
     using AutoMapper;
     using Asset.Application.Queries;
+    using Asset.Application.Commands.Relocation;
 
     public class MappingProfile : Profile
     {
@@ -16,6 +17,7 @@
 
             // Relocation
             this.CreateMap<CreateRelocationRequestCommand, DAL.RelocationRequest>();
+            this.CreateMap<UpdateRelocationRequestStatusCommand, DAL.RelocationRequest>();
         }
     }
 }

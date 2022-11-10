@@ -17,10 +17,10 @@ namespace Asset.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "7.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Asset.Domain.Entities.Asset", b =>
                 {
@@ -28,7 +28,7 @@ namespace Asset.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
@@ -48,9 +48,8 @@ namespace Asset.Infrastructure.Migrations
                     b.Property<int>("PeriodType")
                         .HasColumnType("int");
 
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Producer")
                         .HasColumnType("nvarchar(max)");
@@ -72,10 +71,13 @@ namespace Asset.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AssetId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("FromLocationId")
                         .HasColumnType("int");
@@ -86,10 +88,10 @@ namespace Asset.Infrastructure.Migrations
                     b.Property<int?>("FromUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GetRequest")
+                    b.Property<int?>("GetRequest")
                         .HasColumnType("int");
 
-                    b.Property<int>("Received")
+                    b.Property<int?>("Received")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
