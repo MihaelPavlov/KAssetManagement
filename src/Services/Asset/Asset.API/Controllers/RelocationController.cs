@@ -54,5 +54,13 @@
             await this.mediator.Send(request);
             return this.Ok();
         }
+
+        [HttpDelete("id")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<IActionResult> UpdateRequestStatus(int id)
+        {
+            await this.mediator.Send(new DeleteRelocationRequestCommand(id));
+            return this.Ok();
+        }
     }
 }

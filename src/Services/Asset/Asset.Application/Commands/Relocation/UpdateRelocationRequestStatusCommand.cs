@@ -31,10 +31,10 @@
 
         public async Task<Unit> Handle(UpdateRelocationRequestStatusCommand request, CancellationToken cancellationToken)
         {
-            var mappedRequest = this.mapper.Map<RelocationRequest>(request);
-            mappedRequest.Status = (int)RequestStatus.Approved;
-
-            await this.relocationRepository.UpdateAsync(this.mapper.Map<RelocationRequest>(request));
+            var relocationRequest= await this.relocationRepository.GetByIdAsync(request.Id);
+            relocationRequest.Status = (int)RequestStatus.Approved;
+           
+            await this.relocationRepository.UpdateAsync(relocationRequest);
 
             return Unit.Value;
         }

@@ -39,6 +39,8 @@
         {
             var relocationRequest = mapper.Map<DAL.RelocationRequest>(request);
             relocationRequest.Status = (int)RequestStatus.Pending;
+            relocationRequest.GetRequest = null;
+            relocationRequest.Received = null;
 
             var result = await relocationRepository.AddAsync(relocationRequest);
 

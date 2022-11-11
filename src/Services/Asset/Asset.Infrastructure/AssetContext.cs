@@ -1,6 +1,5 @@
 ﻿namespace Asset.Infrastructure
 {
-    using Asset.Domain.Entities;
     using Microsoft.EntityFrameworkCore;
 
     public class AssetContext : DbContext
@@ -10,7 +9,7 @@
         {
         }
 
-        public DbSet<Asset> Asset { get; set; }
-        public DbSet<RelocationRequest> RelocationRequest { get; set; }
+        public DbSet<Domain.Entities.Asset> Asset { get; set; }
+        public DbSet<Domain.Entities.RelocationRequest> RelocationRequest { get; set; }
     }
 }

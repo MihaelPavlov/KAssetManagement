@@ -26,7 +26,7 @@
                     Producer= "Tesla",
                     Brand = "Cars",
                     Model= "2022 Tesla Car",
-                    Price =200.000m,
+                    Price ="200.000",
                     Type = 0,
                     PeriodType = 1,
                     Status = 0
