@@ -2,9 +2,9 @@
 {
     using MediatR;
     using Asset.Application.Interfaces;
-    using DAL = Domain.Entities;
     using Asset.Application.Persistence;
     using AutoMapper;
+    using DAL = Domain.Entities;
 
     public class GetRelocationRequestByIdQuery : IRequest<GetRelocationRequestByIdQueryModel>
     {
@@ -29,9 +29,9 @@
 
         public async Task<GetRelocationRequestByIdQueryModel> Handle(GetRelocationRequestByIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await relocationRepository.GetByIdAsync(request.RequestId);
+            var result = await this.relocationRepository.GetByIdAsync(request.RequestId);
 
-            return mapper.Map<GetRelocationRequestByIdQueryModel>(result);
+            return this.mapper.Map<GetRelocationRequestByIdQueryModel>(result);
         }
     }
 

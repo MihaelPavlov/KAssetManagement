@@ -16,6 +16,7 @@
             services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
             services.AddScoped<IAssetRepository, AssetRepository>();
             services.AddScoped<IRelocationRepository, RelocationRepository>();
+            services.AddScoped<IRenovationRepository, RenovationRepository>();
             return services;
         }
     }
