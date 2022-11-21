@@ -17,7 +17,7 @@
 
             // Relocation
             this.CreateMap<CreateRelocationRequestCommand, DAL.RelocationRequest>();
-            this.CreateMap<UpdateRelocationRequestStatusCommand, DAL.RelocationRequest>();
+            this.CreateMap<ApproveRelocationRequestStatusCommand, DAL.RelocationRequest>();
         }
     }
 }

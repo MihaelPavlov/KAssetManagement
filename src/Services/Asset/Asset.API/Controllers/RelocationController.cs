@@ -44,6 +44,12 @@
             return this.Ok(result);
         }
 
+        /// <summary>
+        ///     RequestStatus can be: 
+        ///           Approved = 0,
+        ///           Pending = 1,
+        ///           Declined = 2,
+        /// </summary>
         [HttpPut("id")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateRequestStatus(int id, UpdateRelocationRequestStatusCommand request)
@@ -57,7 +63,7 @@
 
         [HttpDelete("id")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> UpdateRequestStatus(int id)
+        public async Task<IActionResult> DeleteRequestStatus(int id)
         {
             await this.mediator.Send(new DeleteRelocationRequestCommand(id));
             return this.Ok();

@@ -1,8 +1,6 @@
 ﻿namespace Asset.Application.Commands.Relocation
 {
     using Asset.Application.Persistence;
-    using Asset.Domain.Entities;
-    using Asset.Domain.Enums;
     using AutoMapper;
     using MediatR;
     using System.Threading;
@@ -11,10 +9,12 @@
     public class UpdateRelocationRequestStatusCommand : IRequest
     {
         public int Id { get; set; }
+        public int RequestStatus { get; set; }
 
-        public UpdateRelocationRequestStatusCommand(int id)
+        public UpdateRelocationRequestStatusCommand(int id, int requestStatus)
         {
             this.Id = id;
+            this.RequestStatus = requestStatus;
         }
     }
 
@@ -32,7 +32,8 @@
         public async Task<Unit> Handle(UpdateRelocationRequestStatusCommand request, CancellationToken cancellationToken)
         {
             var relocationRequest= await this.relocationRepository.GetByIdAsync(request.Id);
-            relocationRequest.Status = (int)RequestStatus.Approved;
+
+            relocationRequest.Status = request.RequestStatus;
            
             await this.relocationRepository.UpdateAsync(relocationRequest);
 
