@@ -25,14 +25,15 @@
 
         public async Task<List<GetRelocationRequestQueryModel>> Handle(GetRelocationRequestListQuery request, CancellationToken cancellationToken)
         {
-            var result = await relocationRepository.GetAllAsync();
+            var result = await this.relocationRepository.GetAllAsync();
 
-            return mapper.Map<List<GetRelocationRequestQueryModel>>(result);
+            return this.mapper.Map<List<GetRelocationRequestQueryModel>>(result);
         }
     }
 
     public class GetRelocationRequestQueryModel : IMapFrom<RelocationRequest>
     {
+        public int Id { get; set; }
         public int AssetId { get; set; }
 
         public int FromSiteId { get; set; }

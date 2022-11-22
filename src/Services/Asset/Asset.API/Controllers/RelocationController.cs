@@ -27,7 +27,7 @@
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<GetRelocationRequestByIdQueryModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<GetRelocationRequestQueryModel>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetRequestList()
         {
             var result = await this.mediator.Send(new GetRelocationRequestListQuery());

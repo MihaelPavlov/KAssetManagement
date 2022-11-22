@@ -37,6 +37,7 @@
 
     public class GetRelocationRequestByIdQueryModel : IMapFrom<DAL.RelocationRequest>
     {
+        public int Id { get; set; }
         public int AssetId { get; set; }
 
         public int FromSiteId { get; set; }

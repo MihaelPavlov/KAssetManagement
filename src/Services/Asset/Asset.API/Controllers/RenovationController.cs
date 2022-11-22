@@ -1,5 +1,6 @@
 ﻿namespace Asset.API.Controllers
 {
+    using Asset.Application.Queries.Relocation;
     using Asset.Application.Queries.Renovation;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,15 @@
         public async Task<IActionResult> GetRequestById(int id)
         {
             var result = await this.mediator.Send(new GetRenovationRequestByIdQuery(id));
+
+            return this.Ok(result);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<GetRenovationRequestQueryModel>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetRequestList()
+        {
+            var result = await this.mediator.Send(new GetRenovationRequestListQuery());
 
             return this.Ok(result);
         }
