@@ -1,6 +1,5 @@
 ﻿namespace Asset.API.Controllers
 {
-    using Asset.Application.Queries.Relocation;
     using Asset.Application.Queries.Renovation;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
